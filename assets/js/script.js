@@ -42,17 +42,17 @@ const SearchWithDate = ()=>{
     
     function validating_dates () {
         if(yyyy>Present_year){
-            errorCardText.innerHTML  =`Invalid Date! Try something between <br/> <b>01/01/1996</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
+            errorCardText.innerHTML  =`Invalid Date!!<br/> Try something between <b>01/01/1996</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
             errorCard.showModal();
             clearData();
         } else { 
             if (yyyy<=Present_year && mm>Present_month){
-                errorCardText.innerHTML  =`Invalid Date! Try something between <br/> <b>01/01/1996</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
+                errorCardText.innerHTML  =`Invalid Date!!<br/> Try something between <b>01/01/1996</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
                 errorCard.showModal();
                 clearData();
             } else {
                 if(yyyy<=Present_year && mm<=Present_month && dd>Present_date){
-                    errorCardText.innerHTML  =`Invalid Date! Try something between <br/> <b>01/01/1996</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
+                    errorCardText.innerHTML  =`Invalid Date!!<br/> Try something between <b>01/01/1996</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
                     errorCard.showModal();
                 clearData();
                 } else {                
