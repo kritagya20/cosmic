@@ -4,15 +4,14 @@ const apiKey = "api_key=oZE6pQiVQIdUnGScbcRkpcIkbi1luROq42MtbL3F";
 const defaultQuery = url + apiKey ;
 
 //ELEMENTS FOR MANIPULATING THE DOM
-const searchBtn =  document.querySelector('#search-form');
+const searchForm =  document.querySelector('#search-form');
 const errorCard = document.querySelector('#error-dialog');
+const errorCardText = errorCard.querySelector('#error-dialog-text');
+console.log(errorCardText)
 const retryBtn = document.querySelector('#retry');
 const container = document.querySelector('#api-data');
 const loadingSpinner = document.getElementById('spinner'); //LOADING SPINNER
 let apiNotFound = false;
-console.log(errorCard)
-
-
 
 //PRELOADER
 window.addEventListener('load', () => {
@@ -20,28 +19,70 @@ window.addEventListener('load', () => {
 })
 
 //SEARCH USING USER REQUEST
-searchBtn.addEventListener('submit', (event) => {
+searchForm.addEventListener('submit', (event) => {
     event.preventDefault(); //TO AVOID THE DEFAULT ACTION ASSOSIATED WITH SUBMIT EVENT IN JS
     SearchWithDate();
     container.style.display = "none";
 });
 
-//GETTING DATA FROM HTML
+//GETTING DATA FROM HTML 
 const SearchWithDate = ()=>{
-    const dd =  String(document.querySelector('#date').value).padStart(2, '0'); //getting the date entered by the user and ensuring that it always has 2 digits
-    const mm =  String(document.querySelector('#month').value).padStart(2, '0'); //getting the date entered by the user and ensuring that it always has 2 digits
-    const yyyy =  document.querySelector('#year').value; //selecting the parent of  description container to append data in it
+    const dd =  String(searchForm.querySelector('#date').value).padStart(2, '0'); //getting the date entered by the user and ensuring that it always has 2 digits
+    const mm =  String(searchForm.querySelector('#month').value).padStart(2, '0'); //getting the date entered by the user and ensuring that it always has 2 digits
+    const yyyy =  searchForm.querySelector('#year').value; //selecting the parent of  description container to append data in it
     let date = yyyy + '-' + mm + '-' + dd;
     let dateUrl = "&date=" + date;
     let dateQuery = url + apiKey + dateUrl;
-    fetchData(dateQuery);
+
+    let date_constructor= new Date(); //initiallising constructor
+    let Present_date = date_constructor.getDate(); //present date 
+    let x = date_constructor.getMonth(); //present month ranging  0-11
+    let Present_month = ++x; //present month ranging 1-12 
+    let Present_year = date_constructor.getFullYear(); //present year
+    
+    function validating_dates () {
+        if(yyyy>Present_year){
+            errorCardText.innerHTML  =`Invalid Date! Try something between <br/> <b>01/01/1995</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
+            errorCard.showModal();
+            clearData();
+        } else { 
+            if (yyyy<=Present_year && mm>Present_month){
+                errorCardText.innerHTML  =`Invalid Date! Try something between <br/> <b>01/01/1995</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
+                errorCard.showModal();
+                clearData();
+            } else {
+                if(yyyy<=Present_year && mm<=Present_month && dd>Present_date){
+                    errorCardText.innerHTML  =`Invalid Date! Try something between <br/> <b>01/01/1995</b>  to <b>${Present_date}/${Present_month}/${Present_year}</b>`;
+                    errorCard.showModal();
+                clearData();
+                } else {                
+                    fetchData(dateQuery);
+                    clearData();
+                }
+            }
+        };
+    }
+    validating_dates(); 
+
+    // //searching only if dates are within prescribed range else displaying error message
+    // if(validating_dates){
+        
+    //     console.log(validating_dates)
+    // } else if(!validating_dates) {
+
+
+    //     // validating search
+
+    // }
 };
+
+
 
 //CLEARING DATA
 const clearData = () => {
-    document.querySelector('#date').value = '';
-    document.querySelector('#month').value = '';
-    document.querySelector('#year').value = '';
+    searchForm.querySelector('#date').value = '';
+    searchForm.querySelector('#month').value = '';
+    searchForm.querySelector('#year').value = '';
 }
 
 //FETCHING DATA FROM API

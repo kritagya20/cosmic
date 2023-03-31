@@ -8,6 +8,7 @@
     --gray: #6c757d;
     --light: #eeefef;
     --dark: #1d1e20;
+    --red: #A91B0D;
   
     /* TRANSITON */
     --transition: all 350ms ease;
@@ -110,6 +111,11 @@ a{
     text-align: center;
     gap: 1%;
     max-width: 30rem;
+    min-width: 25rem;
+}
+
+.card-title {
+    color: #A91B0D;
 }
 
 .error-btn {
@@ -140,7 +146,6 @@ a{
     background-color: transparent;
     color: var(--yellow);
     padding: .5rem 1rem;
-    text-transform: uppercase;
     border: 1px solid transparent;
     font-family: var(--ff1);
     cursor: pointer;
@@ -148,19 +153,18 @@ a{
     border: 2px solid var(--yellow);
     border-radius: 5px;
     font-size: var(--fsa);
+    letter-spacing: .75px;
 }
 
 .btn-primary,
 .btn:hover {
-    background-color: var(--yellow);
+    background-color: var(--red);
     color: var(--white);
-    border: 2px solid var(--yellow);
+    border: 2px double var(--dark);
 }
 
 .btn-primary:hover {
-    background-color: transparent;
-    color: var(--yellow);
-    border: 2px solid var(--yellow);
+    background-color: #d0312d;
 }
 
 .head {
